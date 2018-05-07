@@ -1,5 +1,6 @@
 import requests
 import json
+from .functionnalities import Functionnalities
 from django.shortcuts import render
 from .forms import ContactForm
 
@@ -17,13 +18,14 @@ def results(request):
     if form.is_valid(): 
     	succes = True 
     	sujet = form.cleaned_data['sujet']
-    products_to_get = {'search_terms':sujet, 'page_size':6, 'page':1, 'json':1}
-    request_api_products = requests.get('https://fr.openfoodfacts.org/cgi/search.pl', params = products_to_get)
-    json = request_api_products.json()
-    products = json['products']
+    products = Functionnalities.getSearch(sujet)
     aliments = []
+    firstAliment = False
     for product in products:
-        aliment = {"name":product['product_name'], "url":product['image_url'], "grade":product['nutrition_grades']}
-        aliments.append(aliment)
-    print(aliments)
+        if 'nutrition_grades' in product and 'image_url' in product:
+            if firstAliment != False:
+                aliment = {"name":product['product_name'], "url":product['image_url'], "grade":product['nutrition_grades']}
+                aliments.append(aliment)
+            else:
+                firstAliment  = product['image_url']
     return render(request, 'aliments_manager/results.html', locals())
