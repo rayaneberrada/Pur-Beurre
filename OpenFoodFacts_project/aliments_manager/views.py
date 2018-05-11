@@ -1,9 +1,10 @@
-import requests
-import json
 from .functionnalities import Functionnalities
-from django.shortcuts import render
-from .forms import ContactForm
-
+from django.shortcuts import render, redirect
+from .forms import ContactForm, RegistrationForm, ConnectionForm
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 # Create your views here.
 def home(request):
@@ -29,3 +30,32 @@ def results(request):
             else:
                 firstAliment  = product['image_url']
     return render(request, 'aliments_manager/results.html', locals())
+
+def registration(request):
+    form = RegistrationForm(request.POST or None)
+    if form.is_valid(): 
+        succes = True
+        user = form.cleaned_data['nameUser']
+        password = form.cleaned_data['password']
+        email = form.cleaned_data['email']
+        newUser = User.objects.create_user(user, email, password)
+        newUser.save()
+    return render(request, 'aliments_manager/registration.html', locals())
+
+def connection(request):
+    if request.method == 'POST':
+        form = ConnectionForm(request.POST or None)
+        if form.is_valid():
+            user = form.cleaned_data['nameUser']
+            password = form.cleaned_data['password']
+            user = authenticate(username=user, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+    else:
+        form = ConnectionForm(request.POST or None)
+    return render(request, 'aliments_manager/account.html', locals())
+
+def disconnection(request):
+    logout(request)
+    return redirect(reverse(connection))
