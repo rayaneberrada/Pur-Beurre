@@ -54,8 +54,16 @@ def connection(request):
                 return redirect('home')
     else:
         form = ConnectionForm(request.POST or None)
-    return render(request, 'aliments_manager/account.html', locals())
+    return render(request, 'aliments_manager/connection.html', locals())
 
 def disconnection(request):
     logout(request)
     return redirect(reverse(connection))
+
+def account(request):
+    user = str(request.user)
+    if user == "AnonymousUser":
+        return redirect('registration')
+    else:
+        return render(request, 'aliments_manager/account.html')
+

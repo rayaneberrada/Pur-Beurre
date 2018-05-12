@@ -50,13 +50,19 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <i class="far fa-user" style="color:#c45525;"></i>
+              <a href="{% url "account" %}">
+                <i class="far fa-user" style="color:#c45525;">
+                </i>
+              </a>
             </li>
             <li class="nav-item">
               <p style="text-align: center;"><img src="{% static "aliments_manager/img/carottes.png" %}" style="color: tomato; height: 25px;"></p>
             </li>
             <li class="nav-item">
-              <i class="fas fa-sign-out-alt" style="color:#c45525;"></i>
+              <a href="{% url "disconnection" %}">
+                <i class="fas fa-sign-out-alt" style="color:#c45525;">
+                </i>                
+              </a>
             </li>
           </ul>
         </div>
