@@ -76,8 +76,18 @@ WSGI_APPLICATION = 'OpenFoodFacts_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql', # on utilise l'adaptateur postgresql
+
+        'NAME': 'projet_huit', # le nom de notre base de donnees creee precedemment
+
+        'USER': 'rayane', # attention : remplacez par votre nom d'utilisateur
+
+        'PASSWORD': '',
+
+        'HOST': '',#Une chaîne vide signifie localhost.
+
+        'PORT': '',#Une chaîne vide signifie le port par défaut.
+
     }
 }
 

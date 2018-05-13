@@ -62,7 +62,10 @@
               <p style="text-align: center;"><img src="{% static "aliments_manager/img/carottes.png" %}" style="color: tomato; height: 25px;"></p>
             </li>
             <li class="nav-item">
-              <i class="fas fa-sign-out-alt" style="color:#c45525;"></i>
+              <a href="{% url "disconnection" %}">
+                <i class="fas fa-sign-out-alt" style="color:#c45525;">
+                </i>                
+              </a>
             </li>
           </ul>
         </div>

@@ -11,25 +11,27 @@ def home(request):
     """ Exemple de page non valide au niveau HTML pour que l'exemple soit concis """
     form = ContactForm(request.POST or None)
     if form.is_valid(): 
-    	succes = True 
+        succes = True 
     return render(request, 'aliments_manager/index.html', locals())
 
 def results(request):
-    form = ContactForm(request.POST or None)
-    if form.is_valid(): 
-    	succes = True 
-    	sujet = form.cleaned_data['sujet']
-    products = Functionnalities.getSearch(sujet)
-    aliments = []
-    firstAliment = False
-    for product in products:
-        if 'nutrition_grades' in product and 'image_url' in product:
-            if firstAliment != False:
-                aliment = {"name":product['product_name'], "url":product['image_url'], "grade":product['nutrition_grades']}
-                aliments.append(aliment)
-            else:
-                firstAliment  = product['image_url']
-    return render(request, 'aliments_manager/results.html', locals())
+    if request.method == 'POST':
+        form = ContactForm(request.POST or None)
+        if form.is_valid(): 
+           succes = True 
+           sujet = form.cleaned_data['sujet']
+        products = Functionnalities.getSearch(sujet)
+        aliments = []
+        firstAliment = False
+        for product in products:
+            if 'nutrition_grades' in product and 'image_url' in product:
+                if firstAliment != False:
+                    aliment = {"name":product['product_name'], "url":product['image_url'], "grade":product['nutrition_grades']}
+                    aliments.append(aliment)
+                else:
+                    firstAliment  = product['image_url']
+        context = {"aliments":aliments, "firstAliment":firstAliment}
+    return render(request, 'aliments_manager/results.html', context)
 
 def registration(request):
     form = RegistrationForm(request.POST or None)
@@ -63,7 +65,7 @@ def disconnection(request):
 def account(request):
     user = str(request.user)
     if user == "AnonymousUser":
-        return redirect('registration')
+        return redirect('connection')
     else:
         return render(request, 'aliments_manager/account.html')
 
