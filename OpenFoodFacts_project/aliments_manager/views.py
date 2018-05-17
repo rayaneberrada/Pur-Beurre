@@ -1,10 +1,13 @@
 from .functionnalities import Functionnalities
 from django.shortcuts import render, redirect
 from .forms import ContactForm, RegistrationForm, ConnectionForm
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 def home(request):
@@ -69,3 +72,7 @@ def account(request):
     else:
         return render(request, 'aliments_manager/account.html')
 
+@csrf_exempt
+def add_favorite(request):
+    if request.method == 'POST':
+        return HttpResponse("") 
