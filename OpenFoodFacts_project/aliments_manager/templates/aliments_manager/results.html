@@ -89,8 +89,18 @@
         <ul>
           {% for aliment in aliments%}   
             <figure>
-              <img src={{ aliment.url }}>
+              <div class="container">
+                <img src={{ aliment.url }}>
+                {% if aliment.grade == "a" %}
+                  <img src="{% static "aliments_manager/img/A.png" %}">
+                {% elif aliment.grade == "b" %} 
+                  <img src="{% static "aliments_manager/img/B.png" %}">
+                {% elif aliment.grade == "c" %} 
+                  <img src="{% static "aliments_manager/img/C.png" %}">
+                {% endif %}
+              </div>
               <figcaption> {{ aliment.name }}</figcaption>
+              <p hidden>{{ aliment.code }} </p>
               <i class="far fa-save"></i>
             </figure>
           {% endfor %}

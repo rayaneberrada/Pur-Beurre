@@ -5,8 +5,9 @@ from django.contrib.auth.models import User
 class Favorites(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	url = models.CharField(max_length = 100)
-	name = models.CharField(max_length = 32)
+	name = models.CharField(max_length = 100)
 	nutriscore = models.CharField(max_length = 1)
+	code = models.IntegerField(default = "0122")
 
 	def __str__(self):
 		return self.name

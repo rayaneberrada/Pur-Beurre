@@ -1,12 +1,14 @@
 from .functionnalities import Functionnalities
 from django.shortcuts import render, redirect
 from .forms import ContactForm, RegistrationForm, ConnectionForm
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from operator import itemgetter
+from aliments_manager.models import Favorites, User
 
 
 # Create your views here.
@@ -17,6 +19,7 @@ def home(request):
         succes = True 
     return render(request, 'aliments_manager/index.html', locals())
 
+@csrf_exempt
 def results(request):
     if request.method == 'POST':
         form = ContactForm(request.POST or None)
@@ -25,27 +28,33 @@ def results(request):
            sujet = form.cleaned_data['sujet']
         products = Functionnalities.getSearch(sujet)
         aliments = []
-        firstAliment = False
         for product in products:
             if 'nutrition_grades' in product and 'image_url' in product:
-                if firstAliment != False:
-                    aliment = {"name":product['product_name'], "url":product['image_url'], "grade":product['nutrition_grades']}
+                    aliment = {"name":product['product_name'], "url":product['image_url'],\
+                             "grade":product['nutrition_grades'], "code":product['codes_tags'][1]}
                     aliments.append(aliment)
-                else:
-                    firstAliment  = product['image_url']
-        context = {"aliments":aliments, "firstAliment":firstAliment}
+        aliments = sorted(aliments, key=itemgetter('grade'))
+        context = {"aliments":aliments, "firstAliment":aliments[0]["url"]}
     return render(request, 'aliments_manager/results.html', context)
 
 def registration(request):
     form = RegistrationForm(request.POST or None)
-    if form.is_valid(): 
-        succes = True
+    if form.is_valid():
         user = form.cleaned_data['nameUser']
         password = form.cleaned_data['password']
         email = form.cleaned_data['email']
-        newUser = User.objects.create_user(user, email, password)
-        newUser.save()
-    return render(request, 'aliments_manager/registration.html', locals())
+        user_exist = User.objects.filter(username=user)
+        if user_exist:
+            error = True
+            error_msg = "Désolé mais ce compte existe déjà"
+            context = {"error_msg": error_msg, "form": form, "error":error}
+            return render(request, 'aliments_manager/registration.html', context)
+        else:
+            succes = True 
+            newUser = User.objects.create_user(user, email, password)
+            newUser.save()
+            context = {"succes":succes, "form":form}
+    return render(request, 'aliments_manager/registration.html', context)
 
 def connection(request):
     if request.method == 'POST':
@@ -57,9 +66,14 @@ def connection(request):
             if user is not None:
                 login(request, user)
                 return redirect('home')
+            else:
+                error = True
+                context = {"error":error, "form":form}
+                return render(request, 'aliments_manager/connection.html', context)
     else:
         form = ConnectionForm(request.POST or None)
-    return render(request, 'aliments_manager/connection.html', locals())
+        context = {"form":form}
+    return render(request, 'aliments_manager/connection.html', context)
 
 def disconnection(request):
     logout(request)
@@ -75,4 +89,16 @@ def account(request):
 @csrf_exempt
 def add_favorite(request):
     if request.method == 'POST':
-        return HttpResponse("") 
+        username = request.user.username
+        img = request.POST['img']
+        text = request.POST['text']
+        grade = request.POST['grade']
+        if username == "":
+            print("empty")
+            return JsonResponse({"msg":"Vous devez vous connecter pour enregistrer un aliment en favoris"})  
+        else:
+            already_exist = Favorites.objects.filter(name=text)
+
+            user = User.objects.get(username=username)
+            Favorites.objects.create(user=user, url=img, name=text, nutriscore=grade[-5])
+            return HttpResponse("")

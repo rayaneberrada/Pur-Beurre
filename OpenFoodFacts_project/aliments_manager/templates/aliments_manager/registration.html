@@ -80,10 +80,7 @@
           </div>
           <div class="col-lg-8 mx-auto">
             {% if error == True %}
-              <h2 class="text-faded mb-5">Veuillez remplir correctement tous les champs</h2>
-            {% endif %}
-            {% if succes == True %}
-              <h2 class="text-faded mb-5">Vous avez bien été enregistré</h2>
+              <h2 class="text-faded mb-5">Désolé mais cet utilisateur existe déjà</h2>
             {% endif %}
             <form action="{% url "registration" %}" method="post">
               {% csrf_token %}
