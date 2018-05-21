@@ -7,7 +7,7 @@ class Favorites(models.Model):
 	url = models.CharField(max_length = 100)
 	name = models.CharField(max_length = 100)
 	nutriscore = models.CharField(max_length = 1)
-	code = models.IntegerField(default = "0122")
+	code = models.CharField(max_length = 15, default = "0122")
 
 	def __str__(self):
 		return self.name

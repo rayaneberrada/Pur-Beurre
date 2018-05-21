@@ -5,6 +5,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from operator import itemgetter
@@ -19,8 +20,7 @@ def home(request):
         succes = True 
     return render(request, 'aliments_manager/index.html', locals())
 
-@csrf_exempt
-def results(request):
+def results(request, page=1):
     if request.method == 'POST':
         form = ContactForm(request.POST or None)
         if form.is_valid(): 
@@ -31,14 +31,16 @@ def results(request):
         for product in products:
             if 'nutrition_grades' in product and 'image_url' in product:
                     aliment = {"name":product['product_name'], "url":product['image_url'],\
-                             "grade":product['nutrition_grades'], "code":product['codes_tags'][1]}
+                             "grade":product['nutrition_grades'], "code":str(product['codes_tags'][1])}
                     aliments.append(aliment)
         aliments = sorted(aliments, key=itemgetter('grade'))
+        paginator = Paginator(aliments, 6)
         context = {"aliments":aliments, "firstAliment":aliments[0]["url"]}
     return render(request, 'aliments_manager/results.html', context)
 
 def registration(request):
     form = RegistrationForm(request.POST or None)
+    context = {"form":form}
     if form.is_valid():
         user = form.cleaned_data['nameUser']
         password = form.cleaned_data['password']
@@ -93,12 +95,17 @@ def add_favorite(request):
         img = request.POST['img']
         text = request.POST['text']
         grade = request.POST['grade']
+        code = request.POST['code']
         if username == "":
-            print("empty")
-            return JsonResponse({"msg":"Vous devez vous connecter pour enregistrer un aliment en favoris"})  
-        else:
-            already_exist = Favorites.objects.filter(name=text)
+            return JsonResponse({"msg":" Vous devez vous connecter pour enregistrer un aliment en favoris"})
 
-            user = User.objects.get(username=username)
-            Favorites.objects.create(user=user, url=img, name=text, nutriscore=grade[-5])
-            return HttpResponse("")
+        user = User.objects.get(username=username)
+        in_db = Favorites.objects.filter(user=user).filter(code=code)
+        print(in_db)
+        if in_db:
+            print("existe déjà")
+            return JsonResponse({"msg":" Cet aliment est déjà dans vos favoris"})
+        else:
+            print("ajout")
+            Favorites.objects.create(user=user, url=img, name=text, nutriscore=grade[-5], code=code)
+            return JsonResponse({"msg":" l'aliment a bien été ajouté"})
