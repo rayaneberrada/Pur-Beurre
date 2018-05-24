@@ -23,7 +23,7 @@
     <link href="{% static "aliments_manager/vendor/magnific-popup/magnific-popup.css" %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{% static "aliments_manager/css/creative.css" %}" rel="stylesheet">
+    <link href="{% static "aliments_manager/css/creative.min.css" %}" rel="stylesheet">
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script> 
@@ -32,18 +32,22 @@
 
   </head>
 
+  <body id="page-top">
+    
+
     <!-- Navigation -->
     {% include 'aliments_manager/nav.html' %}
+
     <header class="masthead text-center text-white d-flex">
       <div class="container my-auto">
         <div class="row">
         <style type="text/css">
           header.masthead{
-            background-image: url({{ firstAliment.url_image }});
+            background-image: url({{ aliment_selected.image_url }});
           }  
         </style>
         <div class="container" id="image_name">
-          <p>{{ firstAliment.name }}</p>
+          <p>{{ aliment_selected.product_name }}</p>
         </div>
         </div>
       </div>
@@ -51,52 +55,43 @@
 
     <section  id="about">
       <div class="container">
-        {% if empty %}
-          <h3 class="presentation">Il n'existe pas d'aliments sains pour la recherche que vous avez effectué</h3>
-        {% else %}
-          <h3 class="presentation">Vous pouvez remplacer cet aliment par:</h3>        
-        {% endif %}
-      </div>
-      <div class="row" >
-          {% for aliment in aliments%}   
-            <div class="col-sm-4 text-center">
-              <figure>
-              <div class="container" id="aliment_image">
-                <a href="{% url 'aliment' aliment.code  %}"><img class="aliment" src={{ aliment.url_image }}></a>
-                {% if aliment.grade == "a" %}
-                <div class="grade">
-                  <img src="{% static "aliments_manager/img/A.png" %}">
-                </div>
-                {% elif aliment.grade == "b" %} 
-                <div class="grade">
-                  <img src="{% static "aliments_manager/img/B.png" %}">
-                </div>
-                {% elif aliment.grade == "c" %} 
-                <div class="grade">
-                  <img src="{% static "aliments_manager/img/C.png" %}">
-                </div>
-                {% endif %}
-                <figcaption> {{ aliment.name }}</figcaption>
-                <p hidden>{{ aliment.code }} </p>
-                <i class="far fa-save"></i><span></span>
-                <p hidden>{{ aliment.url }}</p>
-              </div>
-              </figure>
-            </div>
-          {% endfor %}
-      </div>
-      <div class="container text-center" id="pages" >
-        {% if aliments.has_previous %}
-          <a id="previous" href="http://127.0.0.1:8000/results/{{aliment_searched}}/{{aliments.previous_page_number}}">Précédente</a> -
-        {% endif %}
-
-        <span class="current">
-          Page {{ aliments.number }} sur {{ aliments.paginator.num_pages }}
-        </span>
-
-        {% if aliments.has_next %}
-     -    <a id="next" href="http://127.0.0.1:8000/results/{{aliment_searched}}/{{ aliments.next_page_number }}">Suivante</a>
-        {% endif %}
+        <div class="row">
+          <div class="col-sm">
+            {% if aliment_selected.nutrition_grades == "a"%}
+              <img src="{% static "aliments_manager/img/nutriscore/nutriscore-a.svg" %}">          
+            {% elif aliment_selected.nutrition_grades == "b"%}
+              <img src="{% static "aliments_manager/img/nutriscore/nutriscore-b.svg" %}">
+            {% elif aliment_selected.nutrition_grades == "c"%}
+              <img src="{% static "aliments_manager/img/nutriscore/nutriscore-c.svg" %}">
+            {% endif %}
+          </div>
+          <div class="col-sm">
+            <h2>Repères nutritionnels  pour 100g:</h2>
+            <ul>
+              <li>
+                <img src="{% static 'aliments_manager/img/nutrient_level_images/'|add:aliment_selected.nutrient_levels.fat|add:'.svg' %}">
+                {{ nutriments.fat_value }} g Matières grasses / Lipides en quantité  {{ aliment_selected.fat }}
+              </li>
+              <li>
+                <img src="{% static 'aliments_manager/img/nutrient_level_images/'|add:aliment_selected.nutrient_levels.saturated|add:'.svg' %}">
+                {{ nutriments.saturated }} g Acides gras saturés en quantité  {{ aliment_selected.saturated }}
+              </li>
+              <li>
+                <img src="{% static 'aliments_manager/img/nutrient_level_images/'|add:aliment_selected.nutrient_levels.sugars|add:'.svg' %}">
+                {{ nutriments.sugars_value }} g Sucres en quantité {{ aliment_selected.sugars }}
+              </li>
+              <li>
+                <img src="{% static 'aliments_manager/img/nutrient_level_images/'|add:aliment_selected.nutrient_levels.salt|add:'.svg' %}">
+                {{ nutriments.salt_value }} g Sel en quantité {{ aliment_selected.salt }}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="container" id="containButton">
+          <div id="button">
+            <a href="{{ aliment_selected.url }}" id="off"><button >Voir la fiche d'OpenFoodFacts</button></a>          
+          </div>
+        </div>
       </div>
     </section>
 

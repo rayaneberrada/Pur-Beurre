@@ -31,63 +31,43 @@
     </head>
 
   </head>
-
     <!-- Navigation -->
     {% include 'aliments_manager/nav.html' %}
-    <header class="masthead text-center text-white d-flex">
-      <div class="container my-auto">
-        <div class="row">
-        <style type="text/css">
-          header.masthead{
-            background-image: url({{ firstAliment.url_image }});
-          }  
-        </style>
-        <div class="container" id="image_name">
-          <p>{{ firstAliment.name }}</p>
-        </div>
-        </div>
-      </div>
-    </header>
 
     <section  id="about">
       <div class="container">
-        {% if empty %}
-          <h3 class="presentation">Il n'existe pas d'aliments sains pour la recherche que vous avez effectué</h3>
-        {% else %}
-          <h3 class="presentation">Vous pouvez remplacer cet aliment par:</h3>        
-        {% endif %}
+        <h3 class="presentation">Voici vos favoris:</h3>      
       </div>
-      <div class="row" >
+      <div class="row">
           {% for aliment in aliments%}   
             <div class="col-sm-4 text-center">
               <figure>
               <div class="container" id="aliment_image">
-                <a href="{% url 'aliment' aliment.code  %}"><img class="aliment" src={{ aliment.url_image }}></a>
-                {% if aliment.grade == "a" %}
+                <a href="{% url 'aliment' aliment.code  %}"><img class="aliment" src={{ aliment.image }}></a>
+                {% if aliment.nutriscore == "A" %}
                 <div class="grade">
-                  <img src="{% static "aliments_manager/img/A.png" %}">
+                  <img src="{% static "aliments_manager/img/A.png" %}">                  
                 </div>
-                {% elif aliment.grade == "b" %} 
+                {% elif aliment.nutriscore == "B" %} 
                 <div class="grade">
-                  <img src="{% static "aliments_manager/img/B.png" %}">
-                </div>
-                {% elif aliment.grade == "c" %} 
+                  <img src="{% static "aliments_manager/img/B.png" %}">                  
+                </div>                
+                {% elif aliment.nutriscore == "C" %} 
                 <div class="grade">
-                  <img src="{% static "aliments_manager/img/C.png" %}">
+                  <img src="{% static "aliments_manager/img/C.png" %}">                  
                 </div>
                 {% endif %}
                 <figcaption> {{ aliment.name }}</figcaption>
                 <p hidden>{{ aliment.code }} </p>
-                <i class="far fa-save"></i><span></span>
-                <p hidden>{{ aliment.url }}</p>
+                <i class="fa fa-trash" aria-hidden="true"></i><span></span>
               </div>
               </figure>
             </div>
           {% endfor %}
       </div>
-      <div class="container text-center" id="pages" >
+      <div class="container text-center" id="pages">
         {% if aliments.has_previous %}
-          <a id="previous" href="http://127.0.0.1:8000/results/{{aliment_searched}}/{{aliments.previous_page_number}}">Précédente</a> -
+          <a id="previous" href="http://127.0.0.1:8000/favorites/{{aliments.previous_page_number}}">Précédente</a> -
         {% endif %}
 
         <span class="current">
@@ -95,7 +75,7 @@
         </span>
 
         {% if aliments.has_next %}
-     -    <a id="next" href="http://127.0.0.1:8000/results/{{aliment_searched}}/{{ aliments.next_page_number }}">Suivante</a>
+     -    <a id="next" href="http://127.0.0.1:8000/favorites/{{ aliments.next_page_number }}">Suivante</a>
         {% endif %}
       </div>
     </section>
