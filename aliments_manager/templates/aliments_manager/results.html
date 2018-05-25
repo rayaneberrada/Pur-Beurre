@@ -87,7 +87,7 @@
       </div>
       <div class="container text-center" id="pages" >
         {% if aliments.has_previous %}
-          <a id="previous" href="http://127.0.0.1:8000/results/{{aliment_searched}}/{{aliments.previous_page_number}}">Précédente</a> -
+          <a id="previous" href="{% url 'results' aliment_searched aliments.previous_page_number %}">Précédente</a> -
         {% endif %}
 
         <span class="current">
@@ -95,7 +95,7 @@
         </span>
 
         {% if aliments.has_next %}
-     -    <a id="next" href="http://127.0.0.1:8000/results/{{aliment_searched}}/{{ aliments.next_page_number }}">Suivante</a>
+     -    <a id="next" href="{% url 'results' aliment_searched aliments.next_page_number %}">Suivante</a>
         {% endif %}
       </div>
     </section>
