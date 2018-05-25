@@ -198,6 +198,7 @@ def show_aliment(request, code):
     nutriments = aliment_selected['nutriments']
     nutriments['saturated'] = nutriments.pop('saturated-fat_value')
     aliment_selected['nutrient_levels']['saturated'] = aliment_selected['nutrient_levels'].pop('saturated-fat')
+    aliment_selected['url'] = "https://fr.openfoodfacts.org/produit/"+code
     for level in nutrients:
         if nutrients[level] == "low":
             aliment_selected[level] = 'faible'
