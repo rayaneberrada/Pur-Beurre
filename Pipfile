@@ -17,6 +17,7 @@ requests = "*"
 "psycopg2" = "*"
 gunicorn = "*"
 django-heroku = "*"
+pylint = "*"
 
 
 [requires]
