@@ -20,7 +20,7 @@ $(function() {
 				'url' : url
 			},
 			type : 'POST',
-			url : '/add_favorite'
+			url : '/add_favorite/'
 		})
 		.done(function(data) {
 			if (data.msg) {
