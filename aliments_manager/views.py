@@ -210,3 +210,6 @@ def show_aliment(request, code):
     print(aliment_selected)
     context = {"aliment_selected":aliment_selected, "nutrients":nutrients, "nutriments":nutriments, "search":search}
     return render(request, 'aliments_manager/aliment.html', context)
+
+def show_legalmentions(request):
+    return render(request, 'aliments_manager/legalmentions.html')

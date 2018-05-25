@@ -10,5 +10,6 @@ urlpatterns = [
     path('account/', views.account, name='account'),
    	path('add_favorite/', views.add_favorite, name='add_favorite'),
    	path('favorites/<int:page_id>/', views.show_favorites, name='favorites' ),
-   	path('aliment/<str:code>/', views.show_aliment, name='aliment')
+   	path('aliment/<str:code>/', views.show_aliment, name='aliment'),
+   	path('legalmentions/', views.show_legalmentions, name='legalmentions')
 ]

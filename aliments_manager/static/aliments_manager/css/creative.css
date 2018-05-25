@@ -329,6 +329,16 @@ div .row{
   margin-right: 0px;
 }
 /* css for index*/
+#foot{
+  height:50px;
+  background-color: #e8a75d;
+}
+
+.legal{
+  margin-left: 20%;
+  margin-top: 1%;
+}
+
 #phone,#mail{
   font-size: 50px;
 }
@@ -338,7 +348,7 @@ div .row{
 }
 
 #contact{
-  background-color: #e8a75d;
+  background-color: #de9440;
 }
 
 .search{
