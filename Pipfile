@@ -18,6 +18,9 @@ requests = "*"
 gunicorn = "*"
 django-heroku = "*"
 pylint = "*"
+coverage = "*"
+httpretty = "*"
+responses = "*"
 
 
 [requires]

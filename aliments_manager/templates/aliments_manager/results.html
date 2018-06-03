@@ -51,7 +51,7 @@
 
     <section  id="about">
       <div class="container">
-        {% if empty %}
+        {% if aliments|length <= 0 %}
           <h3 class="presentation">Il n'existe pas d'aliments sains pour la recherche que vous avez effectué</h3>
         {% else %}
           <h3 class="presentation">Vous pouvez remplacer cet aliment par:</h3>        

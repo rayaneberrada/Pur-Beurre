@@ -1,7 +1,7 @@
 from django import forms
 
 class ContactForm(forms.Form):
-    sujet = forms.CharField(max_length=100, label='')
+    sujet = forms.CharField(max_length=30, label='')
 
 class RegistrationForm(forms.Form):
 	nameUser = forms.CharField(max_length=8)
