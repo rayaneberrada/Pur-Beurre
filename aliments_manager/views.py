@@ -12,7 +12,10 @@ from aliments_manager.models import Favorites
 
 # Create your views here.
 def home(request):
-    """ Exemple de page non valide au niveau HTML pour que l'exemple soit concis """
+    """
+    view displaying the main page except if the user fill the form correctly and submit it
+    he will be redirected to the results view.
+    """
     choice = Functionnalities.searchFormValid(request)
     if choice[0] == "redirect":
         return redirect(choice[1])
@@ -20,9 +23,16 @@ def home(request):
         return render(request, 'aliments_manager/index.html', {"search":choice[0]})
 
 def results(request, aliment_searched, page_id):
+    """
+    This view display the results of the user searched made from the search form.
+    """
     previous_session = Functionnalities.updateSession(request)
     context = Functionnalities.getAlimentsFromAPI(request, previous_session, aliment_searched, page_id)
 
+    """
+    Those 5 lines of code below which appears in most views just redirect the user to 
+    the results view with the content of the form filled in the navbar
+    """
     choice = Functionnalities.searchFormValid(request)
     if choice[0] == "redirect":
         return redirect(choice[1])
@@ -32,10 +42,19 @@ def results(request, aliment_searched, page_id):
     return render(request, 'aliments_manager/results.html', context)
 
 def registration(request):
+    """
+    View displaying a form to register when called
+    """
     choice = Functionnalities.searchFormValid(request)
     if choice[0] == "redirect":
         return redirect(choice[1])
 
+    """
+    If the registration form is valid, the view check if the user is already in db.
+    If it s the case, the registration page is loaded with an error message saying
+    that the account already exist, otherwise the user is sent to the connection page
+    with a message indicating that he registered successfully.
+    """
     form = RegistrationForm(request.POST or None)
     if form.is_valid():
         user = form.cleaned_data['nameUser']
@@ -53,10 +72,17 @@ def registration(request):
     return render(request, 'aliments_manager/registration.html', context)
 
 def connection(request):
+    """
+    View displaying a form used to connect on your personnal account
+    """
     choice = Functionnalities.searchFormValid(request)
     if choice[0] == "redirect":
         return redirect(choice[1])
 
+    """
+    When the user fill the form to connect, an error message is displayed in case of
+    failure, or the user is redirect to the home page with a message of success
+    """
     form = ConnectionForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
@@ -74,14 +100,22 @@ def connection(request):
         return render(request, 'aliments_manager/connection.html', context)
 
 def disconnection(request):
+    """
+    View used to disconnet.It redirects on the main page once done.
+    """
     logout(request)
     return redirect(reverse(home))
 
 def account(request):
+    """
+    View used to display the account informations
+    """
     choice = Functionnalities.searchFormValid(request)
     if choice[0] == "redirect":
         return redirect(choice[1])
 
+    #If the user isn't connected, he s redirect to the connection view
+    #else, the informations or displayed
     user = str(request.user)
     if user == "AnonymousUser":
         return redirect('connection')
@@ -89,10 +123,15 @@ def account(request):
         return render(request, 'aliments_manager/account.html')
 
 def show_favorites(request, page_id):
+    """
+    Display the list of favorites aliments saved by the user
+    """
     choice = Functionnalities.searchFormValid(request)
     if choice[0] == "redirect":
         return redirect(choice[1])
 
+    #If the user isn't connected, he s redirect to the connection view
+    #else, the aliments saved by this user or displayed on the page
     username = request.user.username
     if username == "":
         return redirect('connection')
@@ -103,6 +142,9 @@ def show_favorites(request, page_id):
 
 @csrf_exempt
 def add_favorite(request):
+    """
+    Add the aliment selected in the database among the favorites of the user connected
+    """
     if request.method == 'POST':
         username = request.user.username
         img = request.POST['img']
@@ -126,6 +168,9 @@ def add_favorite(request):
             return JsonResponse({"msg":" l'aliment a bien été ajouté"})
 
 def show_aliment(request, code):
+    """
+    Display the informations about the aliment selected
+    """
     context = Functionnalities.getNutrientInfos(code)
 
     choice = Functionnalities.searchFormValid(request)
@@ -137,4 +182,7 @@ def show_aliment(request, code):
     return render(request, 'aliments_manager/aliment.html', context)
 
 def show_legalmentions(request):
+    """
+    Display the page containing the legal mentions
+    """
     return render(request, 'aliments_manager/legalmentions.html')

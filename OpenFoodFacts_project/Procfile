@@ -1,0 +1,1 @@
+web: gunicorn OpenFoodFacts_project.wsgi

@@ -10,21 +10,32 @@ from operator import itemgetter
 
 
 class Functionnalities(object):
-    """docstring for Functionnalities"""
+    """Functionnalities used by the views"""
+    @staticmethod
     def getSearch(product_to_search):
-        products_to_get = {'search_terms':product_to_search, 'page_size':900,'json':1}
+        """
+        Get the products from the OpenFoodFacts API and return a dictionnary of them depending
+        of the user search
+        """
+        products_to_get = {'search_terms':product_to_search, 'page_size':100,'json':1}
         request_api_products = requests.get('https://fr.openfoodfacts.org/cgi/search.pl', params = products_to_get)
         json = request_api_products.json()
         products = json['products']
         return products
 
+    @staticmethod
     def getAliment(code):
+        """
+        Get the nutritionnal informations of an aliment via the OpenFoodFact API using the code of the aliment
+        selected
+        """
         products_to_get = {'code':code+'.json'}
         request_api_products = requests.get('https://fr.openfoodfacts.org/api/v0/produit/', params = products_to_get)
         json = request_api_products.json()
         aliment = json['product']
         return aliment
 
+    @staticmethod
     def searchFormValid(request):
         searchForm = ContactForm(request.POST or None)
         if searchForm.is_valid():
@@ -35,6 +46,7 @@ class Functionnalities(object):
         else:
             return [searchForm]
 
+    @staticmethod
     def chosePage(aliments, page_id):
         paginator = Paginator(aliments, 6)
         try:
@@ -43,6 +55,7 @@ class Functionnalities(object):
             page = paginator.page(paginator.num_pages)
         return page
 
+    @staticmethod
     def updateSession(request):
         if 'session_name' in request.session:
             previous_session = request.session['session_name']
@@ -50,7 +63,7 @@ class Functionnalities(object):
             previous_session = ""
         return previous_session
 
-
+    @staticmethod
     def getAlimentsFromAPI(request, previous_session, aliment_searched, page_id):
         aliments = []
 
@@ -67,7 +80,6 @@ class Functionnalities(object):
                                  "grade":product['nutrition_grades'], "code":str(product['codes_tags'][1]),\
                                  "nutrient_levels":product['nutrient_levels'], "nutriments":product['nutriments'],\
                                  "url":product["url"]}
-                        print("'"+str(product['codes_tags'][1])+"'")
                         aliments.append(aliment)
                     elif len(str(product['codes_tags'][1])) == 13 and product['nutrition_grades'] in ["d","e"] and first_image == "":
                         first_image = {"name":product['product_name'], "url_image":product['image_url']}
@@ -81,7 +93,7 @@ class Functionnalities(object):
         context = {"aliments":pageToDisplay, "firstAliment":first_image, "aliment_searched":aliment_searched}
         return context
 
-
+    @staticmethod
     def getNutrientInfos(code):
         aliment_selected = Functionnalities.getAliment(code[:13])
         nutrients = aliment_selected['nutrient_levels']
@@ -100,6 +112,7 @@ class Functionnalities(object):
         context = {"aliment_selected":aliment_selected, "nutrients":nutrients, "nutriments":nutriments}
         return context
 
+    @staticmethod
     def getPage(username, page_id):
         user = User.objects.get(username=username)
         aliments = Favorites.objects.filter(user=user)
@@ -111,6 +124,7 @@ class Functionnalities(object):
             display = paginator.page_id(paginator.num_pages)
             return display
 
+    @staticmethod
     def checkSessionExist():
         if 'session_name' in request.session:
             previous_session = request.session['session_name']

@@ -17,7 +17,6 @@ class SimpleTest(TestCase):
         )
 
         context = Functionnalities.getNutrientInfos("3259010108078")
-        print(context)
         self.assertEqual.__self__.maxDiff = None
         self.assertEqual(context, {'aliment_selected': {'nutrient_levels': {'saturated': 'low'},\
                                  'url': 'https://fr.openfoodfacts.org/produit/3259010108078', \
