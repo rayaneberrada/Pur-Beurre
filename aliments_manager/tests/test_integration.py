@@ -50,6 +50,7 @@ class MySeleniumTests(LiveServerTestCase):
             self.assertIn(error_msg.text,"Il n'existe pas d'aliments sains pour la recherche que vous avez effectué")
         else:
             self.assertNotEqual(len(products), 0)
+        self.browser.quit()
 
     def test_add_to_favorites(self):
         connection_page = self.browser.find_element_by_id('account')
@@ -78,5 +79,6 @@ class MySeleniumTests(LiveServerTestCase):
         favorite_page.click()
         favorites = self.browser.find_elements_by_xpath('//div[@class="col-sm-4 text-center"]')
         self.assertNotEqual(len(favorites), 0)
+        self.browser.quit()
 
 

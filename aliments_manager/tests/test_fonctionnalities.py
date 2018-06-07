@@ -1,7 +1,6 @@
 import unittest
 import requests
 import httpretty
-import responses
 from django.test import Client, TestCase
 from django.urls import reverse
 from aliments_manager.forms import ContactForm

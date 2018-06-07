@@ -37,6 +37,10 @@ class Functionnalities(object):
 
     @staticmethod
     def searchFormValid(request):
+        """
+        Check if the informations sent by the user are valid an return the redirection address or the 
+        form to display if the informations are not valid
+        """
         searchForm = ContactForm(request.POST or None)
         if searchForm.is_valid():
             aliment = searchForm.cleaned_data['sujet']
@@ -48,6 +52,9 @@ class Functionnalities(object):
 
     @staticmethod
     def chosePage(aliments, page_id):
+        """
+        Return the page to display with the aliments contained inside
+        """
         paginator = Paginator(aliments, 6)
         try:
             page = paginator.page(page_id)
@@ -57,6 +64,9 @@ class Functionnalities(object):
 
     @staticmethod
     def updateSession(request):
+        """
+        Set the previous_seesion variable that will contain the last search made
+        """
         if 'session_name' in request.session:
             previous_session = request.session['session_name']
         else:
@@ -65,6 +75,12 @@ class Functionnalities(object):
 
     @staticmethod
     def getAlimentsFromAPI(request, previous_session, aliment_searched, page_id):
+        """
+        This function clean the data received from the API to keep only the usefull informations
+        and return the context for the results view template containing a dictionnary of the aliments 
+        found on OpenFoodFacts, the image of the worst aliment corresponding to the search and the 
+        value searched
+        """
         aliments = []
 
         if previous_session == aliment_searched:
@@ -95,6 +111,9 @@ class Functionnalities(object):
 
     @staticmethod
     def getNutrientInfos(code):
+        """
+        Organise the informations that will be displayed on the page describing the aliment selected
+        """
         aliment_selected = Functionnalities.getAliment(code[:13])
         nutrients = aliment_selected['nutrient_levels']
         nutriments = aliment_selected['nutriments']
@@ -114,6 +133,9 @@ class Functionnalities(object):
 
     @staticmethod
     def getPage(username, page_id):
+        """
+        Return the page with aliments corresponding to display
+        """
         user = User.objects.get(username=username)
         aliments = Favorites.objects.filter(user=user)
         paginator = Paginator(aliments, 6)
@@ -126,6 +148,9 @@ class Functionnalities(object):
 
     @staticmethod
     def checkSessionExist():
+        """
+        Check that the session correspond to the search made
+        """
         if 'session_name' in request.session:
             previous_session = request.session['session_name']
         else:
