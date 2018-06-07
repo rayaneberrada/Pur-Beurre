@@ -20,7 +20,7 @@ install:
   - 'pipenv install'
 
 before_script:
-  - psql "CREATE USER rayane;"
+  - psql -c "CREATE USER rayane;"
   - psql -c "CREATE DATABASE projet_huit;" -U rayane
 
 script:
