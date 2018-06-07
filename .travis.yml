@@ -21,7 +21,7 @@ install:
 
 before_script:
   - psql -c "CREATE DATABASE projet_huit;" -U postgres
-  - psql -c "CREATE USER foo WITH PASSWORD 'rayane';" -U postgres
+  - psql -c "CREATE USER rayane;" -U postgres
 
 script:
   - ./manage.py test
