@@ -20,7 +20,7 @@ install:
   - 'pipenv install'
 
 before_script:
-  - psql -c "CREATE DATABASE projet_huit;" -U rayane
+  - psql -c "CREATE DATABASE projet_huit;" -U postgres
 
 script:
   - ./manage.py test
