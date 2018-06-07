@@ -20,4 +20,4 @@ install:
   - 'pipenv install'
 
 script:
-  - ./python manage.py test
+  - ./manage.py test
