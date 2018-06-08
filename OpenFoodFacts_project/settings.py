@@ -11,7 +11,14 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import raven
 
+RAVEN_CONFIG = {
+    'dsn': 'https://3a3e80991c374175ad6e8e8dc08a7f22:d1e2a4a913c9428ea87667e088d6122a@sentry.io/1222289',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+}
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -38,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'aliments_manager',
-
+    'raven.contrib.django.raven_compat',
 ]
 
 MIDDLEWARE = [
