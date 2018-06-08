@@ -2160,3 +2160,45 @@ JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.m
 JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
 JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
 *** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1528417396707	geckodriver	INFO	geckodriver 0.20.1
+1528417396751	geckodriver	INFO	Listening on 127.0.0.1:59723
+1528417397805	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.vm7d48SFPj6d"
+1528417420675	Marionette	INFO	Listening on port 39481
+1528417420832	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1528417439190	geckodriver	INFO	geckodriver 0.20.1
+1528417439200	geckodriver	INFO	Listening on 127.0.0.1:53245
+1528417440216	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.wY6OTCAYus0M"
+1528417448162	Marionette	INFO	Listening on port 38431
+1528417448323	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1528417460903	geckodriver	INFO	geckodriver 0.20.1
+1528417460909	geckodriver	INFO	Listening on 127.0.0.1:41227
+1528417461916	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.U0vfSDpeOh5z"
+1528417467657	Marionette	INFO	Listening on port 43785
+1528417467745	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+JavaScript error: https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js, line 6: TypeError: i is undefined
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
