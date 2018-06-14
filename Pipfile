@@ -24,4 +24,4 @@ httpretty = "*"
 raven = "*"
 
 [requires]	
-python_version = "3.6"
+python_version = "3.6.3.3.3"
