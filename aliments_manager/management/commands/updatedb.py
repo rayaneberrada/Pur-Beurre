@@ -14,3 +14,4 @@ class Command(BaseCommand):
             aliment.image = new_aliment['image_thumb_url']
             aliment.nutriscore = new_aliment['nutrition_grades'].upper()
             aliment.save()
+            print(aliment.name)
