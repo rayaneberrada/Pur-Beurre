@@ -21,7 +21,7 @@ class Functionnalities(object):
         request_api_products = requests.get('https://fr.openfoodfacts.org/cgi/search.pl', params = products_to_get)
         json = request_api_products.json()
         products = json['products']
-        #return products
+        return products
 
     @staticmethod
     def getAliment(code):
