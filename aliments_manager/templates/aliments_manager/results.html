@@ -60,7 +60,7 @@
       <div class="row" >
           {% for aliment in aliments%}   
             <div class="col-sm-4 text-center">
-              <figure>
+              <figure style="max-height:90%;">
               <div class="container" id="aliment_image">
                 <a href="{% url 'aliment' aliment.code  %}"><img class="aliment" src={{ aliment.url_image }}></a>
                 {% if aliment.grade == "a" %}
