@@ -1,8 +1,11 @@
 # Pur Beurre
 Pur Beurre is a Django application using the [Open Food Fact API](https://fr.openfoodfacts.org/) to offer to it's users the possibility to display healthy substitues for a specific product searched.
+The nutritional score is also displayed next to the image to indicate the quality of the substitute. A being the highest score a product can receive.
 
-Exemple:
+Exemple of a search for bread:
+
 ![Usage Exemple](exemple.png)
 
-The user can register to save the substitutes he liked and see related informations at any time.
+The user can register and save the substitutes he wishes to keep track of.
+
 ![Favorites](favorites.png)
